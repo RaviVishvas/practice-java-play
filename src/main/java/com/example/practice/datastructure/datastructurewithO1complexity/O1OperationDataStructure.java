@@ -10,7 +10,7 @@ public final class O1OperationDataStructure {
     private int pointer = 0;
     private int arr[];
 
-    private Map<Integer, Integer> mapping = new HashMap<>();
+    private final Map<Integer, Integer> mapping = new HashMap<>();
 
     public O1OperationDataStructure() {
         this.arr = new int[this.capacity];
@@ -62,9 +62,9 @@ public final class O1OperationDataStructure {
     private long getRandomNumber(){
 
         long seed = new Random().nextInt();
-        long a = 37263l, b = 638726798l;
+        long a = 37263, b = 638726798;
 
-        return (seed*a)%pointer + b;
+        return ((seed*a)%pointer + b)%pointer;
     }
 
 }

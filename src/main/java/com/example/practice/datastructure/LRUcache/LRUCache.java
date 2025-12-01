@@ -1,7 +1,6 @@
 package com.example.practice.datastructure.LRUcache;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class LRUCache {
@@ -11,35 +10,33 @@ public class LRUCache {
     Node head, tail;
     Map<Object, Node> mapping = new HashMap();
 
-    LinkedList<Node> values = new LinkedList<>();
-
-    LRUCache(){
+    LRUCache() {
         head = new Node(null);
-        tail =new Node(null);
+        tail = new Node(null);
 
         head.next = tail;
         tail.prev = head;
 
-        System.out.println("Cache capacity is : "+capacity);
+        System.out.println("Cache capacity is : " + capacity);
     }
 
-    LRUCache(int capacity){
-        if(capacity<1) throw new RuntimeException("Capacity should be greater than 0..");
+    LRUCache(int capacity) {
+        if (capacity < 1) throw new RuntimeException("Capacity should be greater than 0..");
         this.capacity = capacity;
 
-        System.out.println("Cache capacity is : "+capacity);
+        System.out.println("Cache capacity is : " + capacity);
 
         head = new Node(null);
-        tail =new Node(null);
+        tail = new Node(null);
 
         head.next = tail;
         tail.prev = head;
     }
 
-    public synchronized void put(Object val){
-        if(mapping.containsKey(val)){
+    public synchronized void put(Object val) {
+        if (mapping.containsKey(val)) {
             Node nod = mapping.get(val);
-            if(tail == nod) tail = tail.prev;
+            if (tail == nod) tail = tail.prev;
             remove(nod);
             nod.val = val;
             insert(nod);
@@ -48,19 +45,19 @@ public class LRUCache {
             insert(newNod);
             mapping.put(val, newNod);
 
-            if(size==capacity){
-               Node toDelete = tail.prev;
+            if (size == capacity) {
+                Node toDelete = tail.prev;
 
-               remove(toDelete);
-               mapping.remove(toDelete.val);
+                remove(toDelete);
+                mapping.remove(toDelete.val);
             } else {
                 size++;
             }
         }
     }
 
-    public synchronized Object get(Object val){
-        if(!mapping.containsKey(val)){
+    public synchronized Object get(Object val) {
+        if (!mapping.containsKey(val)) {
             return "Key not Found!";
         } else {
             Node nod = mapping.get(val);
@@ -72,7 +69,7 @@ public class LRUCache {
         }
     }
 
-    private void insert(Node nod){
+    private void insert(Node nod) {
         nod.next = head.next;
         head.next.prev = nod;
 
@@ -80,7 +77,7 @@ public class LRUCache {
         head.next = nod;
     }
 
-    private Node remove(Node nod){
+    private Node remove(Node nod) {
         nod.next.prev = nod.prev;
         nod.prev.next = nod.next;
 

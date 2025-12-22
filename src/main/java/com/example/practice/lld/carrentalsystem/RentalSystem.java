@@ -32,7 +32,7 @@ public class RentalSystem {
         return new ArrayList<>(stores.getOrDefault(city, Collections.emptyMap()).values());
     }
 
-    public Registration bookVehicle(String userId, City city, String vehicleNo){
+    public Registration bookVehicle(String userId, City city, String storeId, String vehicleNo){
         User user = users.containsKey(userId) ? users.get(userId) : null;
 
         if (Objects.isNull(user)) {
@@ -47,7 +47,7 @@ public class RentalSystem {
             return null;
         }
 
-        Store userStore = cityStores.values().iterator().next();
+        Store userStore = cityStores.getOrDefault(storeId, null);
 
         if (userStore == null) {
             log.error("Store not found for the given city.");
@@ -56,7 +56,7 @@ public class RentalSystem {
 
         Vehicle vehicle = userStore.getVehicles().get(vehicleNo);
         if (vehicle == null || !vehicle.isAvailable()) {
-            log.error("Vehicle not available or does not exist.");
+            log.error("Vehicle not available.");
             return null;
         }
 

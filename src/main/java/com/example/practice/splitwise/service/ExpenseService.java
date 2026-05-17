@@ -4,7 +4,6 @@ import com.example.practice.splitwise.model.Expense;
 import com.example.practice.splitwise.model.Split;
 import com.example.practice.splitwise.model.User;
 import com.example.practice.splitwise.repository.ExpenseRepository;
-import com.example.practice.splitwise.repository.UserRepository;
 import com.example.practice.splitwise.service.split.ExpenseSplitStrategy;
 import com.example.practice.splitwise.service.split.ExpenseSplitStrategyFactory;
 import com.example.practice.splitwise.service.split.SplitType;
@@ -20,23 +19,22 @@ import java.util.stream.Collectors;
 public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final ExpenseSplitStrategyFactory splitStrategyFactory;
 
     @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository, UserRepository userRepository, ExpenseSplitStrategyFactory splitStrategyFactory) {
+    public ExpenseService(ExpenseRepository expenseRepository, UserService userService, ExpenseSplitStrategyFactory splitStrategyFactory) {
         this.expenseRepository = expenseRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.splitStrategyFactory = splitStrategyFactory;
     }
 
     @Transactional
     public Expense createExpense(String description, BigDecimal amount, Long paidByUserId, List<Long> participantIds, SplitType splitType, List<BigDecimal> splitValues) {
-        User paidBy = userRepository.findById(paidByUserId)
-                .orElseThrow(() -> new IllegalArgumentException("Payer with id " + paidByUserId + " not found."));
+        User paidBy = userService.getUserById(paidByUserId);
 
         List<User> participants = participantIds.stream()
-                .map(id -> userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Participant with id " + id + " not found.")))
+                .map(userService::getUserById)
                 .collect(Collectors.toList());
 
         ExpenseSplitStrategy strategy = splitStrategyFactory.getStrategy(splitType);

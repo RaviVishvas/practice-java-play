@@ -1,5 +1,6 @@
 package com.example.practice.lld.parkinglot;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,6 +42,8 @@ public class Parking {
         if(Objects.nonNull(ticket))exitGate.deallocateParking(ticket);
 
         entryGate.displayEmptyParkingSpot(vehicleType).forEach(e -> System.out.println(e.getSpotId() + " isAvailable? -> "+ e.isAvailable()));
+
+        System.out.println("Total earning of the day " + LocalDate.now()+" is ==> "+ticketService.calculateTotalEarnings(LocalDate.now()));
 
     }
 }

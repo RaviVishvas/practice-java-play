@@ -13,4 +13,20 @@ public class ParkingSpot {
         this.available = available;
         this.type = type;
     }
+
+    public String getSpotId() {
+        return spotId;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public VehicleType getType() {
+        return type;
+    }
 }

@@ -12,4 +12,16 @@ public class Vehicle {
         this.vehicleNumber = vehicleNumber;
         this.type = type;
     }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public VehicleType getVehicleType() {
+        return type;
+    }
+
+    public VehicleType getType() {
+        return type;
+    }
 }

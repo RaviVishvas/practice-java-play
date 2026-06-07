@@ -2,7 +2,7 @@ package com.example.practice.lld.parkinglot;
 
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,9 +22,10 @@ public class EntryGate {
     }
 
     public Ticket bookParking(ParkingSpot spot, String vehicleNumber, VehicleType vehicleType){
-        spot.setAvailable(false);
+//        spot.setAvailable(false);
+        spotMangerFactory.getSpotManager(vehicleType).parkVehicle(spot);
         Vehicle vehicle = new Vehicle(vehicleNumber, vehicleType);
-        return ticketService.getTicket(vehicle, spot, LocalDate.now().toString());
+        return ticketService.getTicket(vehicle, spot, LocalDateTime.now());
     }
 
 

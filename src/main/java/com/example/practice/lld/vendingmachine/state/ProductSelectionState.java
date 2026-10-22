@@ -37,7 +37,7 @@ public class ProductSelectionState implements MachineState{
                 return;
             }
 
-            machine.setSelectedItem(new Item(selectedItem.getName(), selectedItem.getItemId(), selectedItem.getPrice(), quantity*(-1)));
+            machine.setSelectedItem(new Item(selectedItem.getName(), selectedItem.getItemId(), selectedItem.getPrice(), quantity));
 
             machine.setCurrentState(new PaymentState(machine));
         } else System.out.println("Selected item not available in stock!");

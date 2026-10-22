@@ -41,7 +41,9 @@ public class DispatchingState implements MachineState{
     @Override
     public void dispatch() {
         Item selected = machine.getSelectedItem();
-        System.out.println("Dispatched "+selected.getQuantity()*(-1)+ " "+ selected.getName());
+        System.out.println("Dispatched "+selected.getQuantity()+ " "+ selected.getName());
+
+        selected.setQuantity(selected.getQuantity()*(-1));
 
         machine.getInventory().updateItem(selected, selected.getItemId());
         machine.setSelectedItem(null);

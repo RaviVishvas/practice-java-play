@@ -15,6 +15,7 @@ public class VendingMachineMain {
         }
 
         System.out.println("Displaying All products....");
+        displayItems(machine);
 
         System.out.println("clicking 'SELECT PRODUCT!'");
         machine.getCurrentState().selectProduct(machine);
@@ -25,6 +26,19 @@ public class VendingMachineMain {
         machine.getCurrentState().chooseItem(3, 3);
 
         machine.getCurrentState().pay(BigDecimal.valueOf(20));
+
+        System.out.println("display products ....");
+        displayItems(machine);
+
+        System.out.println("clicking again 'SELECT PRODUCT!'");
+        machine.getCurrentState().selectProduct(machine);
+
+        displayItems(machine);
+
+        System.out.println("Choosing product....");
+        machine.getCurrentState().chooseItem(3, 3);
+
+        machine.getCurrentState().pay(BigDecimal.valueOf(50));
 
         System.out.println("display products ....");
         displayItems(machine);

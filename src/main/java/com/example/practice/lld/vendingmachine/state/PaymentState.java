@@ -46,7 +46,7 @@ public class PaymentState implements MachineState{
 
         Item selectedItem = machine.getSelectedItem();
 
-        BigDecimal requiredAmount = selectedItem.getPrice().multiply(BigDecimal.valueOf((long)selectedItem.getQuantity()));
+        BigDecimal requiredAmount = selectedItem.getPrice().multiply(BigDecimal.valueOf((long)(selectedItem.getQuantity()*(-1))));
 
         BigDecimal remainingAmt = amount.add(requiredAmount);
 
